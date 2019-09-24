@@ -14,20 +14,31 @@
 </div>
 
 <div class="container my-5">
-    <table class="table table-stripped">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Address</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody id="tbody-content">
 
-        </tbody>
-    </table>
+
+
+    <form class="form">
+
+        <div class="form-group">
+            <label> User Id</label>
+            <input id="user-id" type="text" class="form-control" value="" />
+        </div>
+
+        <div class="form-group">
+            <label> UserName</label>
+            <input id="user-name" type="text" class="form-control" value="" />
+        </div>
+
+        <div class="form-group">
+            <label> Email </label>
+            <input id="user-email" type="email" class="form-control" value="" />
+        </div>
+
+        <div class="form-group">
+            <button class="btn btn-primary" onclick="saveForm()"> Save </button>
+            <a href="index.html" class="btn btn-danger"> Go To Home </a>
+        </div>
+    </form>
 </div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
@@ -35,31 +46,23 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
 
-
 <script>
+    var queryParams = location.search;
+    var params = queryParams.split("=")
+    var userId = params[params.length - 1]
     var http = new XMLHttpRequest();
-    http.open("GET", "https://jsonplaceholder.typicode.com/users");
+    http.open("GET", "https://jsonplaceholder.typicode.com/users/" + userId);
     http.send();
     http.onreadystatechange = function () {
         if (this.readyState == 4) {
-            prepareDynamicTable(JSON.parse(this.responseText))
+            prepareData(JSON.parse(this.responseText))
         }
     }
 
 
-    function prepareDynamicTable(users) {
-        var trEle = '';
-        users.forEach(function (user, index) {
-            trEle += '<tr>' +
-                '<td> ' + user.id +  '</td>' +
-                '<td> ' + user.name + ' </td>' +
-                '<td> ' + user.email + ' </td>' +
-                '<td> ' + user.address.city + '</td>' +
-                '<td> <a href="file:///home/venkateshv/Desktop/evening_git/evening-batch-code/user-edit.html?userId=' + user.id +'" > Edit </a></td>' +
-                '</tr>'
-        })
-
-        document.getElementById("tbody-content").innerHTML = trEle;
+    function prepareData(data) {
+        document.getElementById("user-name").value = data.name;
+        document.getElementById("user-email").value = data.email;
+        document.getElementById("user-id").value = data.id
     }
-
 </script>

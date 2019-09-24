@@ -1,3 +1,35 @@
-/* div{
-    display: inline-block;
-} */
+body{
+    margin: 0px;
+}
+
+
+.some-contaier{
+    height: 300px;
+    background: red;
+}
+.header-container{
+    background: #333333;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    width: 100%;
+}
+
+
+@media only screen and (min-width: 0px) and (max-width: 600px){
+    .some-contaier{
+        background: green;
+    }
+}
+
+
+@media only screen and (min-width: 600px) and (max-width: 800px){
+    .some-contaier{
+        background: yellow;
+    }
+
+
+}
